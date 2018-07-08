@@ -118,9 +118,12 @@ class ProductsController extends Controller
             }
         }
 
+        $total_price = ProductsController::basketTotalPrice($new_panier);
+
         return $this->render('products/basket.html.twig', [
             'controller_name' => 'ProductsController',
-            'panier' => $new_panier
+            'panier' => $new_panier,
+            'total_price' => $total_price
         ]);
     }
 }
