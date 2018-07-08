@@ -1,0 +1,21 @@
+products_index:
+    path: /products
+    controller: App\Controller\ProductsController::index
+
+products_details:
+    path: /products/{id}
+    controller: App\Controller\ProductsController::details
+    requirements:
+        id: '\d+'
+
+products_basket:
+    path: /products/shopping-basket
+    controller: App\Controller\ProductsController::basketIndex
+
+products_details_basket_add:
+    path: /products-added
+    controller: App\Controller\ProductsController::basketAdd
+
+products_basket_delete_all:
+    path: /products/shopping-basket-emptied
+    controller: App\Controller\ProductsController::basketDeleteAll

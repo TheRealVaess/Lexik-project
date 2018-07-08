@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails produit{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <h1>{{ product.name }}</h1>
+        </div>
+        <div class="row">
+            <p>{{ product.description }}</p>
+        </div>
+        <div class="row">
+            <h2>Prix : {{ product.price }}€</h2>
+        </div>
+        <div class="row">
+            <form action="{{ path('products_details_basket_add') }}" method="post">
+                <input type="number" name="quantity" value="1" min="1" max="9999">
+                <input type="hidden" name="id" value="{{ product.id }}">
+                <input type="submit" class="btn" value="Ajouter au panier">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

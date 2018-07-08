@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+    {% for p in panier %}
+        <hr>
+        <div class="row">
+            <div class="col-6">
+                <h5>{{ p[0].name }}</h5>
+            </div>
+            <div class="col-2">
+                <p>Quantité : {{ p[1] }}</p>
+            </div>
+            <div class="col-2">
+                <p>Prix : {{ p[1] * p[0].price }}€</p>
+            </div>
+        </div>
+    {% endfor %}
+        <hr>
+        <div class="row">
+            <div class="col-6">
+                <h4><b>TOTAL</b></h4>
+            </div>
+            <div class="col-2">
+                <p>{{ total_price }}€</p>
+            </div>
+        </div>
+        <div class="row">
+            <a class="btn" href="{{ path('products_basket_delete_all') }}">Vider le panier</a>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{{asset('../assets/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{asset('../assets/css/all.css')}}">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <style>
+        nav {
+            display: flex;
+            justify-content: space-evenly;
+        }
+        nav a, nav i {
+            font-size: 25px;
+        }
+        #basket_link {
+            position: relative;
+        }
+        #basket_link span {
+            position: absolute;
+            right: -5px;
+            bottom: -5px;
+            font-size: 11px;
+            background: whitesmoke;
+            border-radius: 8px;
+            padding: 2px;
+        }
+    </style>
+    <nav>
+        <a href="{{ path('products_index') }}">Accueil</a>
+        {% set panier_session = app.session.get('panier') %}
+        {% set panier_number = 0 %}
+        {% for p in panier_session %}
+            {% set panier_number = panier_number + p %}
+        {% endfor %}
+        <a id="basket_link" href="{{ path('products_basket') }}"><i class="fas fa-shopping-basket"></i><span>{{ panier_number }}</span></a>
+    </nav>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
