@@ -13,9 +13,14 @@
             </div>
             <div class="col-2">
                 <p>Quantité : {{ p[1] }}</p>
+                <a href="{{ path('products_basket_modify', {id: p[0].id, modification: 'minus'}) }}"><i class="fas fa-minus-circle"></i></a>
+                <a href="{{ path('products_basket_modify', {id: p[0].id, modification: 'plus'}) }}"><i class="fas fa-plus-circle"></i></a>
             </div>
             <div class="col-2">
                 <p>Prix : {{ p[1] * p[0].price }}€</p>
+            </div>
+            <div class="col-2">
+                <a class="btn" href="{{ path('products_basket_delete', {id: p[0].id}) }}">Retirer du panier</a>
             </div>
         </div>
     {% endfor %}

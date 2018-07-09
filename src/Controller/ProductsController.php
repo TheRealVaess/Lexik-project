@@ -8,10 +8,9 @@ use App\Entity\Products;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class ProductsController extends Controller
-{
-    public function index()
-    {
+class ProductsController extends Controller {
+
+    public function index() {
         $repository = $this->getDoctrine()->getRepository(Products::class);
         $products = $repository->findAll();
 
@@ -27,8 +26,7 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function details($id, SessionInterface $session)
-    {
+    public function details($id, SessionInterface $session) {
         $repository = $this->getDoctrine()->getRepository(Products::class);
         $product = $repository->find($id);
 
@@ -52,8 +50,7 @@ class ProductsController extends Controller
         return $total_price;
     }
 
-    public function basketIndex(SessionInterface $session)
-    {
+    public function basketIndex(SessionInterface $session) {
         $panier = $session->get('panier');
         $new_panier = array();
 
@@ -97,33 +94,40 @@ class ProductsController extends Controller
         $session->remove('panier');
         $session->set('panier', $tab);
 
-        return $this->render('products/details.html.twig', [
-            'controller_name' => 'ProductsController',
-            'product' => $product
-        ]);
+        return $this->redirectToRoute('products_details', array('id' => $id));
     }
 
     public function basketDeleteAll(SessionInterface $session) {
         $session->clear();
 
-        $panier = $session->get('panier');
-        $new_panier = array();
+        return $this->redirectToRoute('products_basket');
+    }
 
-        if(isset($panier)) {
-            foreach($panier as $key => $p) {
-                $repository = $this->getDoctrine()->getRepository(Products::class);
-                $product = $repository->find($key);
-    
-                $new_panier[] = array($product, $p);
+    public function basketDelete(SessionInterface $session, $id) {
+        $panier = $session->get('panier');
+
+        unset($panier[$id]);
+
+        $session->set('panier', $panier);
+
+        return $this->redirectToRoute('products_basket');
+    }
+
+    public function basketModify(SessionInterface $session, $id, $modification) {
+        $panier = $session->get('panier');
+
+        if($modification == 'minus') {
+            $panier[$id] -= 1;
+            if($panier[$id] <= 0) {
+                unset($panier[$id]);
             }
+        } else if($modification == 'plus') {
+            $panier[$id] += 1;
         }
 
-        $total_price = ProductsController::basketTotalPrice($new_panier);
+        $session->set('panier', $panier);
 
-        return $this->render('products/basket.html.twig', [
-            'controller_name' => 'ProductsController',
-            'panier' => $new_panier,
-            'total_price' => $total_price
-        ]);
+        return $this->redirectToRoute('products_basket');
     }
+
 }

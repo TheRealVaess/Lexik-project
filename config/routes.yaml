@@ -17,5 +17,17 @@ products_details_basket_add:
     controller: App\Controller\ProductsController::basketAdd
 
 products_basket_delete_all:
-    path: /products/shopping-basket-emptied
+    path: /products/shopping-basket/emptied
     controller: App\Controller\ProductsController::basketDeleteAll
+
+products_basket_delete:
+    path: /products/shopping-basket/product-removed{id}
+    controller: App\Controller\ProductsController::basketDelete
+    requirements:
+        id: '\d+'
+
+products_basket_modify:
+    path: /products/shopping-basket/product-modified{modification}{id}
+    controller: App\Controller\ProductsController::basketModify
+    requirements:
+        id: '\d+'
