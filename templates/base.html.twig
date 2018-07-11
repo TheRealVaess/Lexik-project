@@ -17,6 +17,7 @@
         }
         #basket_link {
             position: relative;
+            height: fit-content;
         }
         #basket_link span {
             position: absolute;
@@ -27,6 +28,10 @@
             border-radius: 8px;
             padding: 2px;
         }
+        .product_img {
+            width: 80%;
+            height: 100%;
+        }
     </style>
     <nav>
         <a href="{{ path('products_index') }}">Accueil</a>
@@ -36,6 +41,14 @@
             {% set panier_number = panier_number + p %}
         {% endfor %}
         <a id="basket_link" href="{{ path('products_basket') }}"><i class="fas fa-shopping-basket"></i><span>{{ panier_number }}</span></a>
+        <p>Langue : {{ app.request.locale }} 
+        {% if app.request.locale == 'fr' %}
+            <a class="btn" href="{{ path('products_index', {'_locale': 'en'}) }}">Changer la langue</a>
+        {% elseif app.request.locale == 'en'%}
+            <a class="btn" href="{{ path('products_index', {'_locale': 'fr'}) }}">Changer la langue</a>
+        {% endif %}
+        </p>
+        <a class="btn" href="{{ path('products_to_json') }}">Liste des produits en JSON</a>
     </nav>
     <body>
         {% block body %}{% endblock %}

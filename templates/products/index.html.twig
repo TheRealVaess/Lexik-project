@@ -6,7 +6,11 @@
 
     <div class="container">
     {% for product in products %}
+        <hr>
         <div class="row">
+            <div class="col-3">
+                <img class="product_img" src="{{ asset(product.image) }}">
+            </div>
             <div class="col-4">
                 <p>{{ product.name }}</p>
             </div>

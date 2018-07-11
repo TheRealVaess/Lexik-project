@@ -7,6 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Entity\Products;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class ProductsController extends Controller {
 
@@ -128,6 +131,41 @@ class ProductsController extends Controller {
         $session->set('panier', $panier);
 
         return $this->redirectToRoute('products_basket');
+    }
+
+    public function changeLanguage(Request $request) {
+        $locale = $request->getLocale();
+
+        if($locale == 'fr') {
+            $request->setLocale('en');
+        } else if($locale == 'en') {
+            $request->setLocale('fr');
+        }
+
+        return $this->redirectToRoute('products_index');
+    }
+
+    public function productsToJSON() {
+        $repository = $this->getDoctrine()->getRepository(Products::class);
+        $products = $repository->findAll();
+
+        if (!$products) {
+            throw $this->createNotFoundException(
+                'No product found.'
+            );
+        }
+
+        $encoders = array(new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $products = $serializer->serialize($products, 'json');
+    
+        return $this->render('products/products_to_json.html.twig', [
+            'controller_name' => 'ProductsController',
+            'products' => $products
+        ]);
     }
 
 }

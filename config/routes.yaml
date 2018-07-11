@@ -1,33 +1,59 @@
 products_index:
-    path: /products
+    path: /{_locale}/products
     controller: App\Controller\ProductsController::index
+    requirements:
+        _locale: en|fr
 
 products_details:
-    path: /products/{id}
+    path: /{_locale}/products/{id}
     controller: App\Controller\ProductsController::details
     requirements:
         id: '\d+'
+        _locale: en|fr
 
 products_basket:
-    path: /products/shopping-basket
+    path: /{_locale}/products/shopping-basket
     controller: App\Controller\ProductsController::basketIndex
+    requirements:
+        _locale: en|fr
 
 products_details_basket_add:
-    path: /products-added
+    path: /{_locale}/products-added
     controller: App\Controller\ProductsController::basketAdd
+    requirements:
+        _locale: en|fr
 
 products_basket_delete_all:
-    path: /products/shopping-basket/emptied
+    path: /{_locale}/products/shopping-basket/emptied
     controller: App\Controller\ProductsController::basketDeleteAll
+    requirements:
+        _locale: en|fr
 
 products_basket_delete:
-    path: /products/shopping-basket/product-removed{id}
+    path: /{_locale}/products/shopping-basket/product-removed{id}
     controller: App\Controller\ProductsController::basketDelete
     requirements:
         id: '\d+'
+        _locale: en|fr
 
 products_basket_modify:
-    path: /products/shopping-basket/product-modified{modification}{id}
+    path: /{_locale}/products/shopping-basket/product-modified{modification}{id}
     controller: App\Controller\ProductsController::basketModify
     requirements:
         id: '\d+'
+        _locale: en|fr
+
+products_to_json:
+    path: /{_locale}/products/JSON
+    controller: App\Controller\ProductsController::productsToJSON
+    requirements:
+        _locale: en|fr
+
+products_change_lang:
+    path: /{_locale}/products/lang-changed
+    controller: App\Controller\ProductsController::changeLanguage
+    requirements:
+        _locale: en|fr
+
+logout:
+    path: /logout

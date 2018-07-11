@@ -31,7 +31,7 @@ Afin de charger des objets dans la base de données, il faut charger des fixture
 
 <h3>Lancer le projet :</h3>
 
-Après avoir exécuté WAMP, le projet est accessible depuis l’URL suivante : http://localhost/lexik-exo/public/index.php/products
+Après avoir exécuté WAMP, le projet est accessible depuis l’URL suivante : http://localhost/lexik-exo/public/index.php/fr/products
 
 <h3>Jouer les tests :</h3>
 
