@@ -36,3 +36,8 @@ Après avoir exécuté WAMP, le projet est accessible depuis l’URL suivante : 
 <h3>Jouer les tests :</h3>
 
 Les tests unitaires et fonctionnels peuvent être lancés depuis une console Windows (dans le répertoire du projet) avec la commande suivante : php bin/phpunit
+
+<h3>Panneau d'administration</h3>
+
+Le panneau d'administration est accessible par cette URL : http://localhost/lexik-exo/public/index.php/admin
+Pour y accéder, il faut se connecté avec le nom "admin" et le mot de passe "password".

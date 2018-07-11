@@ -11,7 +11,7 @@ class ProductsControllerTest extends WebTestCase {
     public function testIndex() {
         $client = static::createClient();
 
-        $client->request('GET', '/products');
+        $client->request('GET', '/fr/products');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
